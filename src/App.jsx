@@ -87,7 +87,11 @@ const OUTILS = [
   { category: "CRM & Diffusion",      tools: ["WhatsApp Business", "Brevo", "Sellsy"] },
 ];
 
-const SITES = ["dimexoi.fr", "app.dimexoi.fr", "raumplus.re"];
+const SITES = [
+  { label: "dimexoi.fr",     href: "https://www.dimexoi.fr" },
+  { label: "app.dimexoi.fr", href: "https://app.dimexoi.fr" },
+  { label: "raumplus.re",    href: "https://www.raumplus.re" },
+];
 
 /* ─── Sous-composants ─── */
 
@@ -178,16 +182,19 @@ function ToolChip({ label }) {
   );
 }
 
-function SiteChip({ label }) {
+function SiteChip({ label, href }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <span
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ display: "inline-block", padding: "5px 16px", borderRadius: 100, fontSize: 12.5, fontWeight: 600, border: "1.5px solid var(--orange-mid)", color: hovered ? "white" : "var(--orange)", background: hovered ? "var(--orange)" : "transparent", transform: hovered ? "translateY(-1px)" : "none", transition: "all 0.18s", cursor: "default" }}
+      style={{ display: "inline-block", padding: "5px 16px", borderRadius: 100, fontSize: 12.5, fontWeight: 600, border: "1.5px solid var(--orange-mid)", color: hovered ? "white" : "var(--orange)", background: hovered ? "var(--orange)" : "transparent", transform: hovered ? "translateY(-1px)" : "none", transition: "all 0.18s", cursor: "pointer", textDecoration: "none" }}
     >
       {label}
-    </span>
+    </a>
   );
 }
 
@@ -394,7 +401,7 @@ export default function App() {
                 Sites web gérés
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 9 }}>
-                {SITES.map((s) => <SiteChip key={s} label={s} />)}
+                {SITES.map((s) => <SiteChip key={s.label} label={s.label} href={s.href} />)}
               </div>
             </div>
           </section>
